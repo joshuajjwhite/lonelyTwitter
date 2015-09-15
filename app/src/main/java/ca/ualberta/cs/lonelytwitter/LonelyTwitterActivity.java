@@ -28,11 +28,11 @@ public class LonelyTwitterActivity extends Activity {
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		Tweet tweet;
+		Tweetable tweet;
 
 		try { tweet = new ImportantTweet("longer than 140 characters");}
-		catch (IllegalArgumentException exception){
-			// do somthing here
+		catch (IOException exception){
+			throw new RuntimeException(exception);
 		}
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);

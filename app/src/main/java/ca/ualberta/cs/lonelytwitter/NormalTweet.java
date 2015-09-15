@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created by Joshua on 2015-09-14.
  */
-public class NormalTweet extends Tweet {
+public class NormalTweet extends Tweet implements Tweetable {
 
     public NormalTweet(String tweet, Date date){
         super(tweet,date);
