@@ -51,8 +51,8 @@ public class NewView extends Activity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    //@Override
+   /* public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -62,6 +62,7 @@ public class NewView extends Activity {
         if (id == R.id.action_settings) {
             return true;
         }
+    } */
 
     private void loadFromFile() {
         try {
@@ -81,8 +82,9 @@ public class NewView extends Activity {
             throw new RuntimeException();
         }
 
+       // return super.onOptionsItemSelected(item);
     }
 
-        return super.onOptionsItemSelected(item);
-    }
+
+
 }
