@@ -7,10 +7,12 @@ import java.util.ArrayList;
 /**
  * Created by Joshua on 2015-09-28.
  */
-public class TweetListTest extends ActivityInstrumentationTestCase2 {
+public class TweetListTest extends ActivityInstrumentationTestCase2 implements MyObserver {
+    private Boolean wasNotified = Boolean.FALSE;
     public TweetListTest() {
         super(ca.ualberta.cs.lonelytwitter.TweetListTest.class);
     }
+
 
     public void testAddTweet(){
         try{
@@ -94,5 +96,30 @@ public class TweetListTest extends ActivityInstrumentationTestCase2 {
 
 
     }
+
+    public void testAddObserver(){
+        TweetList list = new TweetList();
+        list.addObserver(this);
+        wasNotified = Boolean.FALSE;
+        list.add(new NormalTweet("test"));
+        assertTrue(wasNotified);
+    }
+
+    public void myNotify(MyObservable observable) {
+        wasNotified = Boolean.TRUE;
+    }
+
+
+    public void testTweetObserver(){
+        TweetList list = new TweetList();
+        list.addObserver(this);
+        NormalTweet tweet = new NormalTweet("test");
+        wasNotified = Boolean.FALSE;
+        list.add(tweet);
+        wasNotified = Boolean.FALSE;
+        tweet.setText("different");
+        assertTrue(wasNotified);
+    }
 }
+
 
