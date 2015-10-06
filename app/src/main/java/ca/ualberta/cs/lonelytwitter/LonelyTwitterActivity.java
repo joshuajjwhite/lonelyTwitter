@@ -50,7 +50,7 @@ public class LonelyTwitterActivity extends Activity implements MyObserver {
 				String text = bodyText.getText().toString(); //view
 				tweets.add(new NormalTweet(text)); //model
 				saveInFile(); //model
-				adapter.notifyDataSetChanged(); //controller
+				adapter.notifyDataSetChanged(); //view
 
 
 			}
