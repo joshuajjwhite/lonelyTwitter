@@ -14,8 +14,10 @@ import java.util.Date;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,9 +30,12 @@ public class LonelyTwitterActivity extends Activity implements MyObserver {
 
 	private static final String FILENAME = "file.sav"; //model
 	private EditText bodyText; // view
-	private ListView oldTweetsList; //view
+	private LonelyTwitterActivity activity  = this;
+
 	private ArrayList<Tweet> tweets; //model
 	ArrayAdapter<Tweet> adapter; // controller
+	private Button saveButton;
+	private  EditText bodytext;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -39,9 +44,17 @@ public class LonelyTwitterActivity extends Activity implements MyObserver {
 		super.onCreate(savedInstanceState); //view
 		setContentView(R.layout.main); //view
 
-		bodyText = (EditText) findViewById(R.id.body); //view
-		Button saveButton = (Button) findViewById(R.id.save); //view
+		bodyText = (EditText) findViewById(R.id.body);
+		saveButton = (Button) findViewById(R.id.save); //view
 		oldTweetsList = (ListView) findViewById(R.id.oldTweetsList); //view
+
+		oldTweetsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Intent intent = new Intent(activity, EditTweetActivity.class);
+				intent.putExtra("Tweet", view.getId());
+				startActivity(intent);
+			}
+		});
 
 		saveButton.setOnClickListener(new View.OnClickListener() {
 
@@ -53,8 +66,20 @@ public class LonelyTwitterActivity extends Activity implements MyObserver {
 				adapter.notifyDataSetChanged(); //view
 
 
+
 			}
 		});
+
+
+
+	}
+
+	public EditText getBodyText(){
+		return bodyText;
+	}
+
+	public Button getSaveButton(){
+		return saveButton;
 	}
 
 	@Override
@@ -67,6 +92,8 @@ public class LonelyTwitterActivity extends Activity implements MyObserver {
 
 		oldTweetsList.setAdapter(adapter); //controller
 	}
+
+
 
 	private void loadFromFile() { //<--- From here
 		try {
@@ -110,5 +137,23 @@ public class LonelyTwitterActivity extends Activity implements MyObserver {
 
 	public void myNotify(MyObservable observable) { //controller
 		adapter.notifyDataSetChanged(); //controller
+	}
+
+	public ListView getOldTweetsList() {
+		return oldTweetsList;
+	}
+
+	public void setOldTweetsList(ListView oldTweetsList) {
+		this.oldTweetsList = oldTweetsList;
+	}
+
+	private ListView oldTweetsList; //view
+
+	public ArrayList<Tweet> getTweets() {
+		return tweets;
+	}
+
+	public void setTweets(ArrayList<Tweet> tweets) {
+		this.tweets = tweets;
 	}
 }
